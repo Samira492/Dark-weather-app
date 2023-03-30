@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>Weather App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="weather-app">
+        <div class="search-form">
+          <form class="search" id="city-form">
+            <div class="row">
+              <div class="col-9">
+                <input
+                  type="search"
+                  placeholder="Search a city..."
+                  class="form-control rounded-pill"
+                  autocomplete="off"
+                  autofocus
+                  id="city-input"
+                />
+              </div>
+              <div class="col-3">
+                <input
+                  type="submit"
+                  value="search"
+                  class="btn btn-primary rounded-pill w-100"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="information">
+          <h1 id="city"></h1>
+          <ul>
+            <li id="date"></li>
+            <li>
+              <span id="time"></span>
+              <span id="description"></span>
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <img
+              src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+              alt="Cloudy icon"
+              class="weather-icon"
+            />
+            <span class="temperature" id="temperature"></span>
+            <span class="units">
+              °C |
+              <a href="a" id="fahrenheit-link">°F</a></span
+            >
+          </div>
+          <div class="col-6">
+            <ul>
+              <li>Humidity: <span id="humidity"></span></li>
+              <li>Wind: <span id="wind-speed"></span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="forecast">
+          <div class="row">
+            <div class="col-2">
+              <ul>
+                <li>Sat</li>
+                <li>
+                  <img
+                    src="https://ssl.gstatic.com/onebox/weather/48/rain_light.png"
+                    alt="raining-icon"
+                  />
+                </li>
+                <li>2 Apr</li>
+
+                <li>-2°/9°</li>
+              </ul>
+            </div>
+            <div class="col-2">
+              <ul>
+                <li>Sun</li>
+                <li>
+                  <img
+                    src="https://ssl.gstatic.com/onebox/weather/48/snow_light.png"
+                    alt="raining-icon"
+                  />
+                </li>
+                <li>3 Apr</li>
+                <li>4°/12°</li>
+              </ul>
+            </div>
+            <div class="col-2">
+              <ul>
+                <li>Mon</li>
+                <li>
+                  <img
+                    src="https://ssl.gstatic.com/onebox/weather/48/rain_light.png"
+                    alt="raining-icon"
+                  />
+                </li>
+                <li>4 Apr</li>
+
+                <li>6°/14°</li>
+              </ul>
+            </div>
+            <div class="col-2">
+              <ul>
+                <li>Tue</li>
+                <li>
+                  <img
+                    src="https://ssl.gstatic.com/onebox/weather/48/partly_cloudy.png"
+                    alt="raining-icon"
+                  />
+                </li>
+                <li>5 Apr</li>
+
+                <li>3°/11°</li>
+              </ul>
+            </div>
+            <div class="col-2">
+              <ul>
+                <li>Wed</li>
+                <li>
+                  <img
+                    src="https://ssl.gstatic.com/onebox/weather/48/partly_cloudy.png"
+                    alt="cloudy-icon"
+                  />
+                </li>
+                <li>6 Apr</li>
+
+                <li>2°/13°</li>
+              </ul>
+            </div>
+            <div class="col-2">
+              <ul>
+                <li>Thu</li>
+                <li>
+                  <img
+                    src="https://ssl.gstatic.com/onebox/weather/48/sunny.png"
+                    alt="raining-icon"
+                  />
+                </li>
+                <li>7 Apr</li>
+                <li>5°/16°</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <small class="footnote"
+      ><a href="https://github.com">Open-source code </a>by Samira
+      Ghorbanzadeh</small
+    >
+    <script src="src/app.js"></script>
+  </body>
+</html>
