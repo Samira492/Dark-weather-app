@@ -24,29 +24,28 @@
     <div class="container">
       <div class="weather-app-wrapper">
         <div class="weather-app">
-          <div class="search-form">
-            <form class="search" id="city-form">
-              <div class="row">
-                <div class="col-9">
-                  <input
-                    type="search"
-                    placeholder="Search a city..."
-                    class="form-control rounded-pill"
-                    autocomplete="off"
-                    autofocus
-                    id="city-input"
-                  />
-                </div>
-                <div class="col-3">
-                  <input
-                    type="submit"
-                    value="search"
-                    class="btn btn-primary rounded-pill w-100"
-                  />
-                </div>
+          <form id="search-form" class="search">
+            <div class="row">
+              <div class="col-9">
+                <input
+                  type="search"
+                  placeholder="Search a city..."
+                  class="form-control rounded-pill"
+                  autocomplete="off"
+                  autofocus
+                  id="city-input"
+                />
               </div>
-            </form>
-          </div>
+              <div class="col-3">
+                <input
+                  type="submit"
+                  value="search"
+                  class="btn btn-primary rounded-pill w-100"
+                />
+              </div>
+            </div>
+          </form>
+
           <div class="information">
             <h1 id="city"></h1>
             <ul>

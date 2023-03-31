@@ -68,7 +68,7 @@ function showFahrenheit(event) {
   });
 }
 
-let cityForm = document.querySelector("#city-form");
+let cityForm = document.querySelector("#search-form");
 cityForm.addEventListener("submit", handleSubmit);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
