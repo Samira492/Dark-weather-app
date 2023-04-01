@@ -17,7 +17,7 @@ function formatDate(timestamp) {
 }
 
 // city temp
-function showCityTemp(response) {
+function displayCityTemp(response) {
   let city = document.querySelector("#city");
   let temperature = document.querySelector("#temperature");
   let humidity = document.querySelector("#humidity");
@@ -25,9 +25,10 @@ function showCityTemp(response) {
   let description = document.querySelector("#description");
   let dateElement = document.querySelector("#date");
   let iconElement = document.querySelector("#icon-image");
+  celsiusTemperature = response.data.main.temp;
 
   city.innerHTML = response.data.name;
-  temperature.innerHTML = Math.round(response.data.main.temp);
+  temperature.innerHTML = Math.round(celsiusTemperature);
   humidity.innerHTML = `${response.data.main.humidity}%`;
   wind.innerHTML = `${Math.round(response.data.wind.speed)} km/hr`;
   description.innerHTML = response.data.weather[0].description;
@@ -43,7 +44,7 @@ function searchCity(city) {
   let units = "metric";
   let apiKey = "0aaff63ed94f830061304509b4039f7f";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
-  axios.get(apiUrl).then(showCityTemp);
+  axios.get(apiUrl).then(displayCityTemp);
 }
 
 function handleSubmit(event) {
@@ -56,23 +57,33 @@ function handleSubmit(event) {
   searchCity(cityInput);
 }
 
-function showFahrenheit(event) {
+function displayFahrenheit(event) {
   event.preventDefault();
-  let city = document.querySelector("#city").innerHTML;
-  let apiKey = "0aaff63ed94f830061304509b4039f7f";
-  let apiAdd = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
-  axios.get(apiAdd).then(function (response) {
-    document.querySelector("#temperature").innerHTML = Math.round(
-      response.data.main.temp
-    );
-  });
+  let temperatureElement = document.querySelector("#temperature");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheitTemp = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
 }
 
-let cityForm = document.querySelector("#search-form");
-cityForm.addEventListener("submit", handleSubmit);
+function displayCelsius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
+let celsiusTemperature = null;
+
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", handleSubmit);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", showFahrenheit);
+fahrenheitLink.addEventListener("click", displayFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsius);
 
 //set default
 searchCity("Tehran");

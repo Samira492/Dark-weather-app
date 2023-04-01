@@ -26,6 +26,14 @@ li {
 li::first-letter {
   text-transform: capitalize;
 }
+.active {
+  color: #bbbfc3;
+  cursor: default;
+}
+.active:hover {
+  color: #bbbfc3;
+  text-decoration: none;
+}
 .weather-app {
   border: 1px solid #bbbfc3;
   border-radius: 10px;
