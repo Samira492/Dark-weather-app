@@ -2,18 +2,13 @@
 function formatDate(timestamp) {
   let now = new Date(timestamp);
   let date = now.getDate();
-  let hours = now.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = now.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
+  let hours = now.getUTCHours();
+  let minutes = now.getUTCMinutes();
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  let day = days[now.getDay()];
-
-  return ` ${day} ${hours}:${minutes}`;
+  let day = days[now.getUTCDay()];
+  return ` ${day} ${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}`;
 }
 
 // city temp
@@ -25,25 +20,27 @@ function displayCityTemp(response) {
   let description = document.querySelector("#description");
   let dateElement = document.querySelector("#date");
   let iconElement = document.querySelector("#icon-image");
-  celsiusTemperature = response.data.main.temp;
+  celsiusTemperature = response.data.current.temperature;
 
-  city.innerHTML = response.data.name;
+  city.innerHTML = response.data.location.name;
   temperature.innerHTML = Math.round(celsiusTemperature);
-  humidity.innerHTML = `${response.data.main.humidity}%`;
-  wind.innerHTML = `${Math.round(response.data.wind.speed)} km/hr`;
-  description.innerHTML = response.data.weather[0].description;
-  dateElement.innerHTML = formatDate(response.data.dt * 1000);
+  humidity.innerHTML = `${response.data.current.humidity}%`;
+  wind.innerHTML = `${Math.round(response.data.current.wind_speed)} km/hr`;
+  description.innerHTML = response.data.current.weather_descriptions[0];
+  iconElement.setAttribute("src", response.data.current.weather_icons[0]);
   iconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    "alt",
+    response.data.current.weather_descriptions[0]
   );
-  iconElement.setAttribute("alt", response.data.weather[0].description);
+  dateElement.innerHTML = formatDate(
+    response.data.location.localtime_epoch * 1000
+  );
 }
 
 function searchCity(city) {
-  let units = "metric";
-  let apiKey = "0aaff63ed94f830061304509b4039f7f";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+  let units = "m";
+  let apiKey = "82233c2345b9e8f0449d19c252de3a7d";
+  let apiUrl = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${city}&units=${units}`;
   axios.get(apiUrl).then(displayCityTemp);
 }
 

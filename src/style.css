@@ -1,6 +1,6 @@
 bODY {
   font-family: "PT Sans", sans-serif;
-  background-color: #2f3134;
+  background-color: #16394c;
 }
 
 h1 {
@@ -51,6 +51,11 @@ li::first-letter {
   top: -15px;
   height: 64px;
   width: 64px;
+}
+.weather-forecast {
+  color: #bbbfc3;
+  text-align: center;
+  margin-top: 20px;
 }
 .units {
   color: #bbbfc3;
