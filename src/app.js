@@ -1,4 +1,4 @@
-// date & time
+//display date & time
 function formatDate(timestamp) {
   let now = new Date(timestamp);
   let date = now.getDate();
@@ -16,26 +16,41 @@ function formatDate(timestamp) {
   return ` ${day} ${hours}:${minutes}`;
 }
 
+function formatDay(timestamp) {
+  let time = new Date(timestamp * 1000);
+  let day = time.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+//get response from called api and show the result in html
 function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
 <div class="col-2">
- <div class="weather-forecast-day">${day}</div>
+ <div class="weather-forecast-day">${formatDay(forecastDay.time)}</div>
 <img
- src="http://openweathermap.org/img/wn/03n@2x.png"
+ src="${forecastDay.condition.icon_url}"
 alt=""
  width="42"
 >
 <div class="weather-forecast-temperature">
- <span class="weather-forecast-temperature-max">18°</span>
-<span class="weather-forecast-temperature-min">12°</span>
+ <span class="weather-forecast-temperature-max">${Math.round(
+   forecastDay.temperature.maximum
+ )}°</span>
+<span class="weather-forecast-temperature-min">${Math.round(
+          forecastDay.temperature.minimum
+        )}°</span>
 </div>
  </div>`;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -48,7 +63,6 @@ function getForecast(coordinates) {
   axios.get(apiUrl).then(displayForecast);
 }
 
-// city temp
 function displayCityTemp(response) {
   let city = document.querySelector("#city");
   let temperature = document.querySelector("#temperature");
@@ -83,6 +97,7 @@ function searchCity(city) {
   axios.get(apiUrl).then(displayCityTemp);
 }
 
+// set the events
 function handleSubmit(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input").value;
@@ -110,6 +125,7 @@ function displayCelsius(event) {
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
+//define global variables
 let celsiusTemperature = null;
 
 let searchForm = document.querySelector("#search-form");
