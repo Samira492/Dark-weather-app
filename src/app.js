@@ -20,6 +20,9 @@ function displayCityTemp(response) {
   let description = document.querySelector("#description");
   let dateElement = document.querySelector("#date");
   let iconElement = document.querySelector("#icon-image");
+  let celsiusLink = document.querySelector("#celsius-link");
+  let fahrenheitLink = document.querySelector("#fahrenheit-link");
+
   celsiusTemperature = response.data.current.temperature;
 
   city.innerHTML = response.data.location.name;
@@ -35,6 +38,8 @@ function displayCityTemp(response) {
   dateElement.innerHTML = formatDate(
     response.data.location.localtime_epoch * 1000
   );
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
 }
 
 function searchCity(city) {
@@ -82,5 +87,5 @@ fahrenheitLink.addEventListener("click", displayFahrenheit);
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsius);
 
-//set default
+// set default city to display
 searchCity("Tehran");

@@ -57,13 +57,25 @@ li::first-letter {
   text-align: center;
   margin-top: 20px;
 }
+.weather-forecast-day {
+  font-size: 16px;
+  opacity: 0.5;
+}
+.weather-forecast-temperature {
+  font-size: 13px;
+}
+.weather-forecast-temperature-min {
+  opacity: 0.5;
+}
 .units {
   color: #bbbfc3;
   position: relative;
-  top: -35px;
-  left: -10px;
+  top: -30px;
+  left: 5px;
 }
 .temperature {
+  position: relative;
+  left: 15px;
   color: #dedede;
   font-size: 44px;
   font-weight: 400px;
