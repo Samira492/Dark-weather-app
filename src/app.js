@@ -2,15 +2,21 @@
 function formatDate(timestamp) {
   let now = new Date(timestamp);
   let date = now.getDate();
-  let hours = now.getUTCHours();
-  let minutes = now.getUTCMinutes();
+  let hours = now.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  let day = days[now.getUTCDay()];
-  return ` ${day} ${hours.toString().padStart(2, "0")}:${minutes
-    .toString()
-    .padStart(2, "0")}`;
+  let day = days[now.getDay()];
+
+  return ` ${day} ${hours}:${minutes}`;
 }
-function displayForecast() {
+
+function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
   let forecastHTML = `<div class="row">`;
@@ -18,22 +24,28 @@ function displayForecast() {
     forecastHTML =
       forecastHTML +
       `
-              <div class="col-2">
-                <div class="weather-forecast-day">${day}</div>
-                <img
-                  src="http://openweathermap.org/img/wn/03n@2x.png"
-                  alt=""
-                  width="42"
-                />
-                <div class="weather-forecast-temperature">
-                  <span class="weather-forecast-temperature-max">18°</span>
-                  <span class="weather-forecast-temperature-min">12°</span>
-                </div>
-              </div>`;
+<div class="col-2">
+ <div class="weather-forecast-day">${day}</div>
+<img
+ src="http://openweathermap.org/img/wn/03n@2x.png"
+alt=""
+ width="42"
+>
+<div class="weather-forecast-temperature">
+ <span class="weather-forecast-temperature-max">18°</span>
+<span class="weather-forecast-temperature-min">12°</span>
+</div>
+ </div>`;
   });
 
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
+}
+function getForecast(coordinates) {
+  let units = "metric";
+  let apiKey = "90fc10d43of9eaac2600303bt6cbaa96";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 // city temp
@@ -48,29 +60,26 @@ function displayCityTemp(response) {
   let celsiusLink = document.querySelector("#celsius-link");
   let fahrenheitLink = document.querySelector("#fahrenheit-link");
 
-  celsiusTemperature = response.data.current.temperature;
+  celsiusTemperature = response.data.temperature.current;
 
-  city.innerHTML = response.data.location.name;
+  city.innerHTML = response.data.city;
   temperature.innerHTML = Math.round(celsiusTemperature);
-  humidity.innerHTML = `${response.data.current.humidity}%`;
-  wind.innerHTML = `${Math.round(response.data.current.wind_speed)} km/hr`;
-  description.innerHTML = response.data.current.weather_descriptions[0];
-  iconElement.setAttribute("src", response.data.current.weather_icons[0]);
-  iconElement.setAttribute(
-    "alt",
-    response.data.current.weather_descriptions[0]
-  );
-  dateElement.innerHTML = formatDate(
-    response.data.location.localtime_epoch * 1000
-  );
+  humidity.innerHTML = `${response.data.temperature.humidity}%`;
+  wind.innerHTML = `${Math.round(response.data.wind.speed)} km/hr`;
+  description.innerHTML = response.data.condition.description;
+  iconElement.setAttribute("src", response.data.condition.icon_url);
+  iconElement.setAttribute("alt", response.data.condition.icon);
+  dateElement.innerHTML = formatDate(response.data.time * 1000);
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
+
+  getForecast(response.data.coordinates);
 }
 
 function searchCity(city) {
-  let units = "m";
-  let apiKey = "82233c2345b9e8f0449d19c252de3a7d";
-  let apiUrl = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${city}&units=${units}`;
+  let units = "metric";
+  let apiKey = "90fc10d43of9eaac2600303bt6cbaa96";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayCityTemp);
 }
 
@@ -114,4 +123,3 @@ celsiusLink.addEventListener("click", displayCelsius);
 
 // set default city to display
 searchCity("Tehran");
-displayForecast();
