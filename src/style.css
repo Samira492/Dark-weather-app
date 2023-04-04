@@ -26,14 +26,7 @@ li {
 li::first-letter {
   text-transform: capitalize;
 }
-.active {
-  color: #bbbfc3;
-  cursor: default;
-}
-.active:hover {
-  color: #bbbfc3;
-  text-decoration: none;
-}
+
 .weather-app {
   border: 1px solid #bbbfc3;
   border-radius: 10px;
@@ -48,7 +41,7 @@ li::first-letter {
 }
 .weather-icon {
   position: relative;
-  top: -15px;
+  top: -10px;
   height: 64px;
   width: 64px;
 }
@@ -57,11 +50,11 @@ li::first-letter {
   text-align: center;
   margin-top: 20px;
 }
-.weather-forecast-day {
+.weather-forecast .weather-forecast-day {
   font-size: 16px;
   opacity: 0.5;
 }
-.weather-forecast-temperature {
+.weather-forecast .weather-forecast-temperature {
   font-size: 13px;
 }
 .weather-forecast-temperature-min {
@@ -71,27 +64,22 @@ li::first-letter {
   color: #bbbfc3;
   position: relative;
   top: -30px;
-  left: 5px;
+  left: -10px;
 }
 .temperature {
-  position: relative;
-  left: 15px;
   color: #dedede;
   font-size: 44px;
   font-weight: 400px;
   line-height: 1;
 }
-.location-img {
-  color: red;
-  font-size: small;
-}
-.search {
+
+.weather-app .search {
   margin-bottom: 20px;
 }
-.information {
+.weather-app .information {
   margin-bottom: 30px;
 }
-.forecast {
+.weather-app .forecast {
   margin-top: 30px;
 }
 .footnote {
